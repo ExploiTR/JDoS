@@ -15,8 +15,10 @@ As systems began filtering out pings of death through firewalls and other detect
 ## How JDoS Works
 1. JDoS  (`My release`) sends large 65500 (`MAX Allowed for Windows Env.`) bytes of packets for each process started by it.
 2. JDoS (`My release - again`) creates a number of 100 processes.
-3. So, totally it sends 65500*100 bytes/sec == 6397 kb/sec == 6.24 mb/sec to victim theoretically.
+3. So, totally it sends 65500×100 bytes/sec == 6397 kb/sec == 6.24 mb/sec to victim theoretically.  
+  *Practically it was avarage 6.8mb/sec for 100 processes in my case*.
 
 ## TWEAKING :  
-My ISP Internet Connection supports 100mbit/s max. So, I limited it to 100 processes. You can tweak it as much as you can [`If your PC is compatiable`]
+My ISP Internet Connection supports 100mbit/s max. So, I limited it to 100 processes.  
+You can tweak it as much as you can [`If your PC is compatiable`].
 
