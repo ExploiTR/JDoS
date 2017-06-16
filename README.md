@@ -13,7 +13,7 @@ In early implementations of TCP/IP, this bug is easy to exploit and can affect a
 As systems began filtering out pings of death through firewalls and other detection methods, a different kind of ping attack known as ping flooding later appeared, which floods the victim with so many ping requests that normal traffic fails to reach the system (`a basic denial-of-service attack`).
 
 ## How JDoS Works
-1. JDoS  (`My release`) sends large 65500 (`MAX Allowed for Windows Env.`) bytes of packets for each process started by it.
+1. JDoS sends large 65500 (`MAX Allowed for Windows Env.`) bytes of packets for each process started by it.
 2. JDoS (`My release - again`) creates a number of 100 processes.
 3. So, totally it sends 65500×100 bytes/sec == 6397 kb/sec == 6.24 mb/sec to victim theoretically.  
   *Practically it was avarage 6.8mb/sec for 100 processes in my case*.
