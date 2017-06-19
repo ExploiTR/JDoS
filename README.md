@@ -22,3 +22,10 @@ As systems began filtering out pings of death through firewalls and other detect
 My ISP Internet Connection supports 100mbit/s max. So, I limited it to 100 processes.  
 You can tweak it as much as you can [`If your PC is compatiable`].
 
+## A HACKISH WORKAROUND
+When I was thinking about `How can I improve JDoS..` I found that clicking the attack button multiple times(ex.5) multiplies processes(5×100). I hit the button 12 times and saw a massive *21 mbyte/s* outputstream from my Computer through my 100 *mbit/s* Internet connection.
+
+If you are thinking me mad because why I didn't put `12×100 = 1200` processes in code ~ Then, I remember you that, If I try to open *1200* processes at once, My PC which has only 8GB RAM and 3.30 GHz Processor will not be able to take it.
+
+But, after observing through Task manager, I came to this decision that, if you take much time to increase the traffic(process) your PC will get less slower. `(If you have less Computer Specification like me)`
+
