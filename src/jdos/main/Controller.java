@@ -1,27 +1,47 @@
-package jdos.main;
+package jdos.exploitr;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.CacheHint;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-public class Controller {
+public class Controller implements Initializable {
 
     static final ArrayList<Process> processArrayList = new ArrayList<>();
 
     @FXML
+    Button settings;
+    @FXML
     TextField host_id;
     @FXML
     ToggleButton start_attack;
+    @FXML
+    Text info;
 
     private boolean ignoreResponse = false;
     private boolean attackRunning = false;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        host_id.setCache(true);
+        host_id.setCacheShape(true);
+        host_id.setCacheHint(CacheHint.SPEED);
+        //use later
+    }
 
     @FXML
     private void toggleResponse() {
@@ -50,8 +70,8 @@ public class Controller {
                         if (what) {
                             Platform.runLater(() -> start_attack.setText("Stop Attack"));
                             attackRunning = true;
-                            ExecutorService executor = Executors.newFixedThreadPool(100);
-                            for (int i = 0; i <= 100; i++) {
+                            ExecutorService executor = Executors.newFixedThreadPool(Attack.THREAD_COUNT);
+                            for (int i = 0; i <= Attack.THREAD_COUNT; i++) {
                                 Runnable worker = new Attack(host_id.getText());
                                 executor.execute(worker);
                             }
@@ -62,8 +82,8 @@ public class Controller {
                 } else {
                     start_attack.setText("Stop Attack");
                     attackRunning = true;
-                    ExecutorService executor = Executors.newFixedThreadPool(100);
-                    for (int i = 0; i <= 100; i++) {
+                    ExecutorService executor = Executors.newFixedThreadPool(Attack.THREAD_COUNT);
+                    for (int i = 0; i <= Attack.THREAD_COUNT; i++) {
                         Runnable worker = new Attack(host_id.getText());
                         executor.execute(worker);
                     }
@@ -72,6 +92,20 @@ public class Controller {
                 showAlert(Alert.AlertType.WARNING, "Invalid Host");
                 start_attack.setSelected(false);
             }
+        }
+    }
+
+    @FXML
+    private void openSettings() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("settings.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(Objects.requireNonNull(root), 260, 172);
+            stage.setTitle("JDoS | Settings");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -92,4 +126,5 @@ public class Controller {
                 }
         );
     }
+
 }
