@@ -6,9 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -20,14 +20,18 @@ public class Main extends Application {
     private static final String KEY_THC = "thc";
     private static final String KEY_PPS = "pps";
 
+    static int DISPLAY_HEIGHT = 1080;
+    static int DISPLAY_WIDTH = 1920;
+
     private static boolean saveEnabled = true;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("scene.fxml"));
         primaryStage.setTitle("JDoS | GitHub/ExploiTR | Apache 2.0");
-        primaryStage.setScene(new Scene(root, 900, 600));
+        primaryStage.setScene(new Scene(root, DISPLAY_WIDTH / 2.0, DISPLAY_HEIGHT / 2.0));
         primaryStage.show();
+        primaryStage.centerOnScreen();
     }
 
 
@@ -37,7 +41,14 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        checkRes();
         launch(args);
+    }
+
+    private static void checkRes() {
+        GraphicsDevice gfx_d = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        DISPLAY_WIDTH = gfx_d.getDisplayMode().getWidth() > 0 ? gfx_d.getDisplayMode().getWidth() : DISPLAY_WIDTH;
+        DISPLAY_HEIGHT = gfx_d.getDisplayMode().getHeight() > 0 ? gfx_d.getDisplayMode().getHeight() : DISPLAY_HEIGHT;
     }
 
     public static void checkSettings(boolean save_mode) throws IOException {
