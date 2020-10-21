@@ -8,47 +8,47 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jdos.exploitr.SettingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jdos.exploitr.SettingsController">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
-   <VBox prefHeight="144.0" prefWidth="283.0">
-      <HBox prefHeight="40.0" prefWidth="600.0">
+   <VBox>
+      <HBox>
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thread Count">
             <HBox.margin>
                <Insets bottom="10.0" left="10.0" right="8.0" top="10.0" />
             </HBox.margin>
          </Text>
-         <TextField fx:id="trc" prefWidth="150.0">
+         <TextField fx:id="trc">
             <HBox.margin>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </HBox.margin>
          </TextField>
       </HBox>
-      <HBox prefHeight="40.0" prefWidth="600.0">
+      <HBox>
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ping Timeout">
             <HBox.margin>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </HBox.margin>
          </Text>
-         <TextField fx:id="pto" prefWidth="150.0">
+         <TextField fx:id="pto">
             <HBox.margin>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </HBox.margin>
          </TextField>
       </HBox>
-      <HBox prefHeight="40.0" prefWidth="600.0">
+      <HBox>
          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ping Bytesize">
             <HBox.margin>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </HBox.margin>
          </Text>
-         <TextField fx:id="pbs" prefWidth="150.0">
+         <TextField fx:id="pbs">
             <HBox.margin>
                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </HBox.margin>
          </TextField>
       </HBox>
    </VBox>
-   <Button fx:id="save_set" layoutX="10.0" layoutY="137.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="25.0" prefWidth="240.0" text="Save" />
+   <Button fx:id="save_set" layoutX="208.0" layoutY="139.0" mnemonicParsing="false" onAction="#saveSettings" text="Save" />
 </AnchorPane>

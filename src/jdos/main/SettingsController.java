@@ -64,7 +64,13 @@ public class SettingsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ((Stage) save_set.getScene().getWindow()).close();
 
-        ((Stage)save_set.getScene().getWindow()).close();
+        if (Controller.listener != null)
+            Controller.listener.settingsChange();
     }
+}
+
+interface settingsChangeListener {
+    void settingsChange();
 }

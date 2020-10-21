@@ -32,15 +32,33 @@ public class Controller implements Initializable {
     @FXML
     Text info;
 
+    @FXML
+    Text info_pto;
+    @FXML
+    Text info_trc;
+    @FXML
+    Text info_pbs;
+
     private boolean ignoreResponse = false;
     private boolean attackRunning = false;
+    public static settingsChangeListener listener;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         host_id.setCache(true);
         host_id.setCacheShape(true);
         host_id.setCacheHint(CacheHint.SPEED);
-        //use later
+
+        updateInfo();
+
+        //set listener
+        listener = this::updateInfo;
+    }
+
+    public void updateInfo() {
+        info_pto.setText(Attack.timeOut + " ms");
+        info_pbs.setText(Attack.byteSize + " byte");
+        info_trc.setText(Attack.THREAD_COUNT + "");
     }
 
     @FXML
@@ -126,5 +144,4 @@ public class Controller implements Initializable {
                 }
         );
     }
-
 }
