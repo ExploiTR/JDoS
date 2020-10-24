@@ -12,6 +12,7 @@ public class Attack implements Runnable {
 
     private final String IPAddress;
 
+    public static int hopSize = 64;
     public static int timeOut = 250;
     public static long byteSize = 65527;
     public static int THREAD_COUNT = 100;

@@ -20,6 +20,8 @@ public class SettingsController implements Initializable {
     @FXML
     TextField pbs;
     @FXML
+    TextField trh;
+    @FXML
     Button save_set;
 
     @Override
@@ -27,10 +29,12 @@ public class SettingsController implements Initializable {
         pto.textProperty().addListener(listener(pto));
         trc.textProperty().addListener(listener(trc));
         pbs.textProperty().addListener(listener(pbs));
+        trh.textProperty().addListener(listener(trh));
 
         pto.setText("" + Attack.timeOut);
         trc.setText("" + Attack.THREAD_COUNT);
         pbs.setText("" + Attack.byteSize);
+        trh.setText("" + Attack.hopSize);
     }
 
     private ChangeListener<String> listener(TextField field) {
@@ -46,6 +50,10 @@ public class SettingsController implements Initializable {
                 if (newValue.length() > 4) {
                     trc.setText(oldValue);
                 }
+            } else if (field.getId().equals(trh.getId())) {
+                if (Integer.parseInt(newValue) > 255) {
+                    trc.setText(oldValue);
+                }
             } else {
                 if (newValue.length() > 5) {
                     pbs.setText(oldValue);
@@ -59,6 +67,7 @@ public class SettingsController implements Initializable {
         Attack.timeOut = Integer.parseInt(pto.getText());
         Attack.byteSize = Integer.parseInt(pbs.getText());
         Attack.THREAD_COUNT = Integer.parseInt(trc.getText());
+        Attack.hopSize = Integer.parseInt(trh.getText());
         try {
             Main.checkSettings(true);
         } catch (IOException e) {
