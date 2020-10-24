@@ -19,6 +19,7 @@ public class Main extends Application {
     private static final String KEY_PTO = "pto";
     private static final String KEY_THC = "thc";
     private static final String KEY_PPS = "pps";
+    private static final String KEY_PHC = "phc";
 
     static int DISPLAY_HEIGHT = 1080;
     static int DISPLAY_WIDTH = 1920;
@@ -29,7 +30,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("scene.fxml"));
         primaryStage.setTitle("JDoS | GitHub/ExploiTR | Apache 2.0");
-        primaryStage.setScene(new Scene(root, DISPLAY_WIDTH / 2.0, DISPLAY_HEIGHT / 2.0));
+        primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
         primaryStage.centerOnScreen();
     }
@@ -55,6 +56,8 @@ public class Main extends Application {
         File file = new File(Environment.getenv("TEMP") + File.separator + "JDoS");
         File actualFile = new File(file.getAbsolutePath() + File.separator + "settings.txt");
 
+        System.out.println(actualFile.getAbsolutePath());
+
         if (save_mode) {
             if (saveEnabled)
                 edit(actualFile);
@@ -74,8 +77,9 @@ public class Main extends Application {
             Attack.THREAD_COUNT = read_done.getInt(KEY_THC);
             Attack.timeOut = read_done.getInt(KEY_PTO);
             Attack.byteSize = read_done.getInt(KEY_PPS);
+            Attack.hopSize = read_done.getInt(KEY_PHC);
             edit(actualFile);
-        } else if (file.mkdirs() && actualFile.createNewFile() && actualFile.canWrite()) {
+        } else if ((file.exists() || file.mkdirs()) && actualFile.createNewFile() && actualFile.canWrite()) {
             edit(actualFile);
         } else {
             saveEnabled = false;
@@ -87,6 +91,7 @@ public class Main extends Application {
         object.put(KEY_PTO, Attack.timeOut);
         object.put(KEY_PPS, Attack.byteSize);
         object.put(KEY_THC, Attack.THREAD_COUNT);
+        object.put(KEY_PHC, Attack.hopSize);
         FileWriter writer = new FileWriter(actualFile);
         writer.write(object.toString());
         writer.flush();

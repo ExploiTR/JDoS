@@ -11,6 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -26,11 +29,15 @@ public class Controller implements Initializable {
     @FXML
     Button settings;
     @FXML
+    Button traceRoute;
+    @FXML
     TextField host_id;
     @FXML
     ToggleButton start_attack;
     @FXML
     Text info;
+    @FXML
+    TextArea trace_info;
 
     @FXML
     Text info_pto;
@@ -38,6 +45,8 @@ public class Controller implements Initializable {
     Text info_trc;
     @FXML
     Text info_pbs;
+    @FXML
+    Text info_phc;
 
     private boolean ignoreResponse = false;
     private boolean attackRunning = false;
@@ -59,6 +68,7 @@ public class Controller implements Initializable {
         info_pto.setText(Attack.timeOut + " ms");
         info_pbs.setText(Attack.byteSize + " byte");
         info_trc.setText(Attack.THREAD_COUNT + "");
+        info_phc.setText(Attack.hopSize + "");
     }
 
     @FXML
@@ -118,12 +128,41 @@ public class Controller implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("settings.fxml"));
             Stage stage = new Stage();
-            Scene scene = new Scene(Objects.requireNonNull(root), 260, 172);
+            Scene scene = new Scene(Objects.requireNonNull(root), -1, -1);
             stage.setTitle("JDoS | Settings");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void startTrace() {
+        if (!host_id.getText().isEmpty()) {
+            try {
+                new Thread(() -> {
+                    try {
+                        Process process = Runtime.getRuntime().exec("tracert -d -h " + Attack.hopSize + " -w " + Attack.timeOut + " " + host_id.getText());
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+                        String read;
+                        while ((read = reader.readLine()) != null) {
+                            String finalRead = read;
+                            Platform.runLater(() -> {
+                                trace_info.setText(trace_info.getText() + finalRead + "\n");
+                            });
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Invalid Host");
+            start_attack.setSelected(false);
         }
     }
 
